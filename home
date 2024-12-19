@@ -121,20 +121,20 @@
     </nav>
 
     <main>
-        <h2>Thank you for visiting my site</h2>
-        <p>I'm a computer engineer interested in digital design and physics. Have a bunch of project ideas I plan to work on for my research in graphics and camera systems. I would love to collaborate, please feel free to reach out.</p>
+        <h2>Hi There </h2>
+        <p>Thank you for visiting my site, however you're early to the party! Please wait for further updates. </p>
 
         <div class="links">
             <div class="link-item">
-                <img src="physics.jpg" alt="Physics">
+                <img src="image/physics.jpg" alt="Physics">
                 <a href="physics.html">Physics</a>
             </div>
             <div class="link-item">
-                <img src="computers.jpeg" alt="Computers">
+                <img src="image/computers.jpeg" alt="Computers">
                 <a href="computers.html">Computers</a>
             </div>
             <div class="link-item">
-                <img src="ethics.jpeg" alt="Ethics">
+                <img src="image/ethics.jpeg" alt="Ethics">
                 <a href="ethics.html">Ethics</a>
             </div>
         </div>
