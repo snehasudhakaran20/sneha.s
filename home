@@ -105,7 +105,7 @@
 </head>
 <body>
     <header>
-        <img src="profilepic.jpg" alt="Profile Image">
+        <img src="image/profilepic.jpg" alt="Profile Image">
         <div>
             <h1>Sneha S</h1>
             <div id="dynamic-container">
