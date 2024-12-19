@@ -10,12 +10,16 @@
             font-family: 'Georgia', serif;
             background: linear-gradient(135deg, #d4dbc3, #fde2e2); /* Olive and peach/pink pastel gradient */
             color: #333;
+            background-color: #ffb3b3; /* Pastel Pink */
             line-height: 1.6;
             position: relative;
         }
 
         header {
             background: #f4f4f4;
+ font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #d4dbc3, #fde2e2); /* Olive and peach/pink pastel gradient */
+            background-color: #ffb3b3; /*#d6f5d6; /* Pastel Green */
             padding: 20px;
             border-bottom: 2px solid #ddd;
             display: flex;
@@ -34,7 +38,11 @@
             font-size: 2.5rem;
             text-align: left;
         }
-
+        header h3 {
+            margin: 0;
+            font-size: 2.0rem;
+            text-align: left;
+        }
         #dynamic-container {
             margin-left: 0; /* Align with the name header */
         }
@@ -46,15 +54,18 @@
         }
 
         nav {
-            text-align: center;
-            margin-top: 10px;
+            position: absolute; /* Make the navigation bar position absolute */
+            top: 20px; /* Position it near the top */
+            right: 20px; /* Position it near the right */
+            font-size: 1rem; /* Reduced font size */
+            display: flex;
+            gap: 15px; /* Space out the links */
         }
 
         nav a {
             color: #007acc;
             text-decoration: none;
-            margin: 0 15px;
-            font-size: 1.2rem;
+            font-size: 0.9rem; /* Reduced font size for the links */
         }
 
         nav a:hover {
@@ -86,7 +97,7 @@
             display: block;
             margin-top: 5px;
             font-size: 1rem;
-            color: #007acc;
+            color: £333; /*#007acc;*/ 
             text-decoration: none;
         }
 
@@ -97,13 +108,20 @@
         footer {
             text-align: center;
             padding: 10px 0;
-            background: #f4f4f4;
+            #background: #f4f4f4;
             border-top: 2px solid #ddd;
             font-size: 0.9rem;
         }
     </style>
 </head>
+
 <body>
+    <nav>
+        <a href="Index.html">Home</a>
+        <a href="Resume.html">Resume</a>
+        <a href="Contact.html">Contact</a>
+    </nav>
+    
     <header>
         <img src="profilepic.jpg" alt="Profile Image">
         <div>
@@ -114,15 +132,11 @@
         </div>
     </header>
 
-    <nav>
-        <a href="Index.html">Home</a>
-        <a href="Resume.html">Resume</a>
-        <a href="Contact.html">Contact</a>
-    </nav>
-
     <main>
-        <h2>Thank you for visiting my site</h2>
-        <p>I'm a computer engineer interested in digital design and physics. Have a bunch of project ideas I plan to work on for my research in graphics and camera systems. I would love to collaborate, please feel free to reach out.</p>
+        <h3>Hi There.</h3>
+        <p>Thanks for stopping by! The site is still a work in progress, so please check back soon for updates.</p>
+
+<p> </p>
 
         <div class="links">
             <div class="link-item">
@@ -144,11 +158,18 @@
         &copy; 2024 Blog. All rights reserved.
     </footer>
 
-    <script>
+   
+
+  <script>
         const sentences = ["Digital Design Engineer", "Physics Computers Ethics"];
         const dynamicSentence = document.getElementById('dynamic-sentence');
         let currentSentence = Array(sentences[0].length).fill('_').join('');
         let currentTargetIndex = 0;
+
+        // Blinking cursor element
+        const cursorElement = document.createElement('span');
+        cursorElement.classList.add('blinking-cursor');
+        cursorElement.textContent = '';
 
         function scrambleAndReveal() {
             let targetSentence = sentences[currentTargetIndex];
@@ -157,16 +178,17 @@
                 if (currentSentence[i] === targetSentence[i]) {
                     updatedSentence += targetSentence[i];
                 } else {
-                    updatedSentence += Math.random() < 0.1 ? targetSentence[i] : getRandomChar();
+                    updatedSentence += Math.random() < 0.1 ? targetSentence[i] : (currentSentence[i]=='' ? '': getRandomChar());
                 }
             }
             currentSentence = updatedSentence;
-            dynamicSentence.innerHTML = currentSentence; // Remove colorization of characters
+            dynamicSentence.innerHTML = currentSentence; // Update the sentence content
+            dynamicSentence.appendChild(cursorElement); // Add the blinking cursor
 
             if (currentSentence !== targetSentence) {
-                setTimeout(scrambleAndReveal, 50);
+                setTimeout(scrambleAndReveal, 50); // Faster transition speed
             } else {
-                setTimeout(scrambleToNextSentence, 4000); // Increased time for sentence visibility
+                setTimeout(scrambleToNextSentence, 3000); // Increased time for sentence visibility
             }
         }
 
@@ -177,7 +199,7 @@
         }
 
         function getRandomChar() {
-            const chars = 'AUxyzutvsSOQEHKLklqRrTZYX0123456789!@#$%^&*()<>_=';
+            const chars = 'A<>=][~#UxyzutvsSOQEHKLklqRrTZYX0123456789!@#$%^&*()<>_='; 
             return chars[Math.floor(Math.random() * chars.length)];
         }
 
