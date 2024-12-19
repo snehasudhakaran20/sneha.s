@@ -105,7 +105,7 @@
 </head>
 <body>
     <header>
-        <img src="image/profilepic.jpg" alt="Profile Image">
+        <img src="profilepic.jpg" alt="Profile Image">
         <div>
             <h1>Sneha S</h1>
             <div id="dynamic-container">
@@ -126,15 +126,15 @@
 
         <div class="links">
             <div class="link-item">
-                <img src="image/physics.jpg" alt="Physics">
+                <img src="physics.jpg" alt="Physics">
                 <a href="physics.html">Physics</a>
             </div>
             <div class="link-item">
-                <img src="image/computers.jpeg" alt="Computers">
+                <img src="computers.jpeg" alt="Computers">
                 <a href="computers.html">Computers</a>
             </div>
             <div class="link-item">
-                <img src="image/ethics.jpeg" alt="Ethics">
+                <img src="ethics.jpeg" alt="Ethics">
                 <a href="ethics.html">Ethics</a>
             </div>
         </div>
