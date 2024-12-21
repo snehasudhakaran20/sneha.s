@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sneha S</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #d4dbc3, #fde2e2); /* Olive and peach/pink pastel gradient */
+            color: #333;
+            background-color: #ffb3b3; /* Pastel Pink */
+            line-height: 1.6;
+            position: relative;
+        }
+
+        header {
+            background: #f4f4f4;
+ font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #d4dbc3, #fde2e2); /* Olive and peach/pink pastel gradient */
+            background-color: #ffb3b3; /*#d6f5d6; /* Pastel Green */
+            padding: 20px;
+            border-bottom: 2px solid #ddd;
+            display: flex;
+            align-items: center;
+        }
+
+        header img {
+            width: 127.5px; /* Reduced size by 15% */
+            height: 127.5px;
+            margin-right: 20px;
+            border-radius: 50%;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            text-align: left;
+        }
+        header h3 {
+            margin: 0;
+            font-size: 2.0rem;
+            text-align: left;
+        }
+        #dynamic-container {
+            margin-left: 0; /* Align with the name header */
+        }
+
+        #dynamic-container #dynamic-sentence {
+            font-family: 'Courier New', monospace;
+            font-size: 1.2rem;
+            color: #555;
+        }
+
+        nav {
+            position: absolute; /* Make the navigation bar position absolute */
+            top: 20px; /* Position it near the top */
+            right: 20px; /* Position it near the right */
+            font-size: 1rem; /* Reduced font size */
+            display: flex;
+            gap: 15px; /* Space out the links */
+        }
+
+        nav a {
+            color: #007acc;
+            text-decoration: none;
+            font-size: 0.9rem; /* Reduced font size for the links */
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .links {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+
+        .link-item {
+            text-align: center;
+        }
+
+        .link-item img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .link-item a {
+            display: block;
+            margin-top: 5px;
+            font-size: 1rem;
+            color: £333; /*#007acc;*/ 
+            text-decoration: none;
+        }
+
+        .link-item a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px 0;
+            #background: #f4f4f4;
+            border-top: 2px solid #ddd;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="Index.html">Home</a>
+        <a href="Resume.html">Resume</a>
+        <a href="Contact.html">Contact</a>
+    </nav>
+    
+    <header>
+        <img src="profilepic.jpg" alt="Profile Image">
+        <div>
+            <h1>Sneha S</h1>
+            <div id="dynamic-container">
+                <div id="dynamic-sentence"></div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <h3>Hi There.</h3>
+        <p>Thanks for stopping by! The site is still a work in progress, so please check back soon for updates.</p>
+
+<p> </p>
+
+        <div class="links">
+            <div class="link-item">
+                <img src="physics.jpg" alt="Physics">
+                <a href="physics.html">Physics</a>
+            </div>
+            <div class="link-item">
+                <img src="computers.jpeg" alt="Computers">
+                <a href="computers.html">Computers</a>
+            </div>
+            <div class="link-item">
+                <img src="ethics.jpeg" alt="Ethics">
+                <a href="ethics.html">Ethics</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2024 Blog. All rights reserved.
+    </footer>
+
+   
+
+  <script>
+        const sentences = ["Digital Design Engineer", "Physics Computers Ethics"];
+        const dynamicSentence = document.getElementById('dynamic-sentence');
+        let currentSentence = Array(sentences[0].length).fill('_').join('');
+        let currentTargetIndex = 0;
+
+        // Blinking cursor element
+        const cursorElement = document.createElement('span');
+        cursorElement.classList.add('blinking-cursor');
+        cursorElement.textContent = '';
+
+        function scrambleAndReveal() {
+            let targetSentence = sentences[currentTargetIndex];
+            let updatedSentence = '';
+            for (let i = 0; i < targetSentence.length; i++) {
+                if (currentSentence[i] === targetSentence[i]) {
+                    updatedSentence += targetSentence[i];
+                } else {
+                    updatedSentence += Math.random() < 0.1 ? targetSentence[i] : (currentSentence[i]=='' ? '': getRandomChar());
+                }
+            }
+            currentSentence = updatedSentence;
+            dynamicSentence.innerHTML = currentSentence; // Update the sentence content
+            dynamicSentence.appendChild(cursorElement); // Add the blinking cursor
+
+            if (currentSentence !== targetSentence) {
+                setTimeout(scrambleAndReveal, 50); // Faster transition speed
+            } else {
+                setTimeout(scrambleToNextSentence, 3000); // Increased time for sentence visibility
+            }
+        }
+
+        function scrambleToNextSentence() {
+            currentTargetIndex = (currentTargetIndex + 1) % sentences.length;
+            currentSentence = Array(sentences[currentTargetIndex].length).fill('_').join('');
+            scrambleAndReveal();
+        }
+
+        function getRandomChar() {
+            const chars = 'A<>=][~#UxyzutvsSOQEHKLklqRrTZYX0123456789!@#$%^&*()<>_='; 
+            return chars[Math.floor(Math.random() * chars.length)];
+        }
+
+        scrambleAndReveal();
+    </script>
+</body>
+</html>
