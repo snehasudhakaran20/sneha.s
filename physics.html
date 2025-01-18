@@ -1,1 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Prism and Rainbow</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: white;
+            overflow: hidden;
+        }
+
+        .light-source {
+            width: 20px;
+            height: 20px;
+            background-color: yellow;
+            border-radius: 50%;
+            position: absolute;
+            left: 20px;
+            bottom: 20px;
+            cursor: grab;
+            box-shadow: 0px 0px 10px 5px yellow;
+        }
+
+        .prism {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(to right, transparent 30%, gray, transparent 70%);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .rainbow {
+            position: absolute;
+            display: none;
+            top: 50%;
+            left: calc(50% + 60px);
+            transform: translateY(-50%);
+        }
+
+        .rainbow span {
+            display: block;
+            height: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+
+        .rainbow span.red { background-color: red; }
+        .rainbow span.orange { background-color: orange; }
+        .rainbow span.yellow { background-color: yellow; }
+        .rainbow span.green { background-color: green; }
+        .rainbow span.blue { background-color: blue; }
+        .rainbow span.indigo { background-color: indigo; }
+        .rainbow span.violet { background-color: violet; }
+
+        .rainbow span a {
+            color: white;
+            text-decoration: none;
+            font-size: 10px;
+            display: block;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="light-source" id="light"></div>
+    <div class="prism" id="prism"></div>
+    <div class="rainbow" id="rainbow">
+        <span class="red"><a href="#red">Red</a></span>
+        <span class="orange"><a href="#orange">Orange</a></span>
+        <span class="yellow"><a href="#yellow">Yellow</a></span>
+        <span class="green"><a href="#green">Green</a></span>
+        <span class="blue"><a href="#blue">Blue</a></span>
+        <span class="indigo"><a href="#indigo">Indigo</a></span>
+        <span class="violet"><a href="#violet">Violet</a></span>
+    </div>
+
+    <script>
+        const lightSource = document.getElementById('light');
+        const prism = document.getElementById('prism');
+        const rainbow = document.getElementById('rainbow');
+
+        let isDragging = false;
+
+        lightSource.addEventListener('mousedown', () => {
+            isDragging = true;
+            lightSource.style.cursor = 'grabbing';
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+            lightSource.style.cursor = 'grab';
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                const rect = lightSource.getBoundingClientRect();
+                const offsetX = rect.width / 2;
+                const offsetY = rect.height / 2;
+
+                lightSource.style.left = `${e.clientX - offsetX}px`;
+                lightSource.style.top = `${e.clientY - offsetY}px`;
+
+                const prismRect = prism.getBoundingClientRect();
+                const lightRect = lightSource.getBoundingClientRect();
+
+                if (
+                    lightRect.right > prismRect.left &&
+                    lightRect.left < prismRect.right &&
+                    lightRect.bottom > prismRect.top &&
+                    lightRect.top < prismRect.bottom
+                ) {
+                    rainbow.style.display = 'block';
+                } else {
+                    rainbow.style.display = 'none';
+                }
+            }
+        });
+    </script>
+</body>
+</html>
 
