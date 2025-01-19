@@ -7,8 +7,9 @@
     <style>
         body {
             margin: 0;
-            background-color: gray;
             overflow: hidden;
+            background: url('prism.jpg') no-repeat center center fixed;
+            background-size: cover;
         }
 
         .light-source {
@@ -18,8 +19,7 @@
             border-radius: 50%;
             position: absolute;
             left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
+            top: 70%;
             cursor: grab;
             box-shadow: 0px 0px 20px 10px yellow;
             animation: blink 1s infinite alternate;
@@ -30,81 +30,52 @@
             100% { opacity: 0.5; }
         }
 
-        .prism {
-            width: 30%;
-            aspect-ratio: 1 / 1;
-            background: rgba(173, 216, 230, 0.5);
-            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%) rotateX(30deg) rotateY(30deg);
-            box-shadow: inset 0px 0px 30px 10px rgba(173, 216, 230, 0.7);
-        }
-
         .rainbow {
             position: absolute;
             display: none;
             top: 50%;
-            left: calc(50% + 15%);
-            transform: translateY(-50%);
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
 
-        .rainbow span {
-            display: block;
-            height: 15px;
-            margin: 10px 0;
-            border-radius: 5px;
-        }
-
-        .rainbow span.red { background-color: red; }
-        .rainbow span.orange { background-color: orange; }
-        .rainbow span.yellow { background-color: yellow; }
-        .rainbow span.green { background-color: green; }
-        .rainbow span.blue { background-color: blue; }
-        .rainbow span.indigo { background-color: indigo; }
-        .rainbow span.violet { background-color: violet; }
-
-        .rainbow span a {
-            color: white;
-            text-decoration: none;
-            font-size: 12px;
-            display: block;
-            text-align: center;
-        }
-
-        .ray {
+        .rainbow .ray {
             position: absolute;
             display: none;
-            width: 0;
-            height: 5px;
-            background-color: white;
-            transform-origin: left;
+            height: 2px;
+            width: 100%;
+            transform-origin: 0 50%;
+            transform: translateY(-50%) rotate(0deg);
             animation: shine 2s forwards;
         }
 
+        .rainbow .red { background-color: red; transform: rotate(-10deg); }
+        .rainbow .orange { background-color: orange; transform: rotate(-5deg); }
+        .rainbow .yellow { background-color: yellow; transform: rotate(0deg); }
+        .rainbow .green { background-color: green; transform: rotate(5deg); }
+        .rainbow .blue { background-color: blue; transform: rotate(10deg); }
+        .rainbow .indigo { background-color: indigo; transform: rotate(15deg); }
+        .rainbow .violet { background-color: violet; transform: rotate(20deg); }
+
         @keyframes shine {
-            0% { width: 0; opacity: 0; }
-            100% { width: 300px; opacity: 1; }
+            0% { opacity: 0; width: 0; }
+            100% { opacity: 1; width: 300px; }
         }
     </style>
 </head>
 <body>
     <div class="light-source" id="light"></div>
-    <div class="prism" id="prism"></div>
     <div class="rainbow" id="rainbow">
-        <span class="red"><a href="#red">Red</a></span>
-        <span class="orange"><a href="#orange">Orange</a></span>
-        <span class="yellow"><a href="#yellow">Yellow</a></span>
-        <span class="green"><a href="#green">Green</a></span>
-        <span class="blue"><a href="#blue">Blue</a></span>
-        <span class="indigo"><a href="#indigo">Indigo</a></span>
-        <span class="violet"><a href="#violet">Violet</a></span>
+        <div class="ray red"></div>
+        <div class="ray orange"></div>
+        <div class="ray yellow"></div>
+        <div class="ray green"></div>
+        <div class="ray blue"></div>
+        <div class="ray indigo"></div>
+        <div class="ray violet"></div>
     </div>
 
     <script>
         const lightSource = document.getElementById('light');
-        const prism = document.getElementById('prism');
         const rainbow = document.getElementById('rainbow');
 
         let isDragging = false;
@@ -128,14 +99,18 @@
                 lightSource.style.left = `${e.clientX - offsetX}px`;
                 lightSource.style.top = `${e.clientY - offsetY}px`;
 
-                const prismRect = prism.getBoundingClientRect();
-                const lightRect = lightSource.getBoundingClientRect();
+                const prismPosition = { top: window.innerHeight / 2 - 100, left: window.innerWidth / 2 - 200 };
+                const prismWidth = 400;
+                const prismHeight = 200;
+
+                const lightLeft = e.clientX;
+                const lightTop = e.clientY;
 
                 if (
-                    lightRect.right > prismRect.left &&
-                    lightRect.left < prismRect.right &&
-                    lightRect.bottom > prismRect.top &&
-                    lightRect.top < prismRect.bottom
+                    lightLeft > prismPosition.left - 20 &&
+                    lightLeft < prismPosition.left + prismWidth + 20 &&
+                    lightTop > prismPosition.top - 20 &&
+                    lightTop < prismPosition.top + prismHeight + 20
                 ) {
                     showRainbow();
                 } else {
@@ -146,25 +121,19 @@
 
         function showRainbow() {
             rainbow.style.display = 'block';
-            const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'];
-            colors.forEach((color, index) => {
-                const ray = document.createElement('div');
-                ray.classList.add('ray');
-                ray.style.backgroundColor = color;
-                ray.style.top = `${50 + index * 20}px`;
-                ray.style.left = `50%`;
-                ray.style.transform = `rotate(${15 + index * 5}deg)`;
-                document.body.appendChild(ray);
-
+            const rays = rainbow.querySelectorAll('.ray');
+            rays.forEach((ray, index) => {
                 setTimeout(() => {
                     ray.style.display = 'block';
-                }, index * 300);
+                }, index * 150);
             });
         }
 
         function hideRainbow() {
             rainbow.style.display = 'none';
-            document.querySelectorAll('.ray').forEach(ray => ray.remove());
+            rainbow.querySelectorAll('.ray').forEach(ray => {
+                ray.style.display = 'none';
+            });
         }
     </script>
 </body>
